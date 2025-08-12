@@ -56,4 +56,18 @@ class UserRepositoryTest {
     void findByEmail_shouldBeEmpty_whenNoUser() {
         assertThat(userRepository.findByEmail("none@mail.com")).isNotPresent();
     }
+
+    @Test
+    void findByRole_shouldReturnUser() {
+        Optional<User> found = userRepository.findByRole(UserRole.ROLE_ADMIN);
+        assertThat(found).isPresent();
+        assertThat(found.get().getUsername()).isEqualTo("bob");
+    }
+
+    @Test
+    void findByRole_shouldBeEmpty_whenNoUserWithThatRole() {
+        em.clear();
+        userRepository.deleteAll();
+        assertThat(userRepository.findByRole(UserRole.ROLE_ADMIN)).isNotPresent();
+    }
 }
