@@ -1,4 +1,4 @@
-package com.raxrot.back.security;
+package com.raxrot.back.security.impl;
 
 import com.raxrot.back.models.User;
 import com.raxrot.back.repository.UserRepository;

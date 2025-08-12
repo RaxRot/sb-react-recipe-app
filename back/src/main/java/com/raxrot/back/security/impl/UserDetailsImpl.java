@@ -1,4 +1,4 @@
-package com.raxrot.back.security;
+package com.raxrot.back.security.impl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.raxrot.back.models.User;
