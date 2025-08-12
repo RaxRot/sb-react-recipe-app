@@ -5,6 +5,7 @@ import jakarta.servlet.FilterChain;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +17,10 @@ import static org.mockito.Mockito.*;
 
 class AuthTokenFilterTest {
 
+    @Autowired
+    private JwtUtils jwtUtils;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
     @AfterEach
     void tearDown() {
         SecurityContextHolder.clearContext();
@@ -27,7 +32,7 @@ class AuthTokenFilterTest {
         UserDetailsServiceImpl uds = mock(UserDetailsServiceImpl.class);
         FilterChain chain = mock(FilterChain.class);
 
-        AuthTokenFilter filter = new AuthTokenFilter();
+        AuthTokenFilter filter = new AuthTokenFilter(jwtUtils,userDetailsService);
 
         org.springframework.test.util.ReflectionTestUtils.setField(filter, "jwtUtils", jwtUtils);
         org.springframework.test.util.ReflectionTestUtils.setField(filter, "userDetailsService", uds);
@@ -59,7 +64,7 @@ class AuthTokenFilterTest {
         UserDetailsServiceImpl uds = mock(UserDetailsServiceImpl.class);
         FilterChain chain = mock(FilterChain.class);
 
-        AuthTokenFilter filter = new AuthTokenFilter();
+        AuthTokenFilter filter = new AuthTokenFilter(jwtUtils,userDetailsService);
         org.springframework.test.util.ReflectionTestUtils.setField(filter, "jwtUtils", jwtUtils);
         org.springframework.test.util.ReflectionTestUtils.setField(filter, "userDetailsService", uds);
 
@@ -83,7 +88,7 @@ class AuthTokenFilterTest {
         UserDetailsServiceImpl uds = mock(UserDetailsServiceImpl.class);
         FilterChain chain = mock(FilterChain.class);
 
-        AuthTokenFilter filter = new AuthTokenFilter();
+        AuthTokenFilter filter = new AuthTokenFilter(jwtUtils,userDetailsService);
         org.springframework.test.util.ReflectionTestUtils.setField(filter, "jwtUtils", jwtUtils);
         org.springframework.test.util.ReflectionTestUtils.setField(filter, "userDetailsService", uds);
 
