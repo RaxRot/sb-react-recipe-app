@@ -1,6 +1,6 @@
 package com.raxrot.back.security.jwt;
 
-import com.raxrot.back.security.UserDetailsServiceImpl;
+import com.raxrot.back.security.impl.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

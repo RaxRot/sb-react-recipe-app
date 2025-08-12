@@ -1,7 +1,7 @@
 package com.raxrot.back.security.jwt;
 
 
-import com.raxrot.back.security.UserDetailsServiceImpl;
+import com.raxrot.back.security.impl.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

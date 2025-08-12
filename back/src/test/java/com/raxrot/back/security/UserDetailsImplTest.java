@@ -2,6 +2,7 @@ package com.raxrot.back.security;
 
 import com.raxrot.back.enums.UserRole;
 import com.raxrot.back.models.User;
+import com.raxrot.back.security.impl.UserDetailsImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
 

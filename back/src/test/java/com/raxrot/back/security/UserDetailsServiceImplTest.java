@@ -3,6 +3,7 @@ package com.raxrot.back.security;
 import com.raxrot.back.enums.UserRole;
 import com.raxrot.back.models.User;
 import com.raxrot.back.repository.UserRepository;
+import com.raxrot.back.security.impl.UserDetailsServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
