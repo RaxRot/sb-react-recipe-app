@@ -9,20 +9,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.ArrayList;
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @ActiveProfiles("test")
 class RecipeRepositoryTest {
 
-    @Autowired TestEntityManager em;
-    @Autowired RecipeRepository recipeRepository;
+    @Autowired
+    TestEntityManager em;
+
+    @Autowired
+    RecipeRepository recipeRepository;
 
     private User author1;
     private User author2;
@@ -34,9 +35,9 @@ class RecipeRepositoryTest {
         em.persist(author1);
         em.persist(author2);
 
-        Recipe r1 = new Recipe(null, "Pancakes", "desc1", "ing1", null, FoodDifficulty.EASY, null, null, author1,null);
-        Recipe r2 = new Recipe(null, "Burger",   "desc2", "ing2", null, FoodDifficulty.MEDIUM, null, null, author1,null);
-        Recipe r3 = new Recipe(null, "Souffle",  "desc3", "ing3", null, FoodDifficulty.HARD, null, null, author2,null);
+        Recipe r1 = new Recipe(null, "Pancakes", "desc1", "ing1", null, FoodDifficulty.EASY, null, null, author1, new ArrayList<>());
+        Recipe r2 = new Recipe(null, "Burger",   "desc2", "ing2", null, FoodDifficulty.MEDIUM, null, null, author1, new ArrayList<>());
+        Recipe r3 = new Recipe(null, "Souffle",  "desc3", "ing3", null, FoodDifficulty.HARD, null, null, author2, new ArrayList<>());
 
         em.persist(r1);
         em.persist(r2);
@@ -47,26 +48,25 @@ class RecipeRepositoryTest {
     }
 
     @Test
-    void findByDifficulty_shouldReturnPaged() {
-        Pageable pageable = PageRequest.of(0, 10, Sort.by("title").ascending());
-        Page<Recipe> page = recipeRepository.findByDifficulty(FoodDifficulty.EASY, pageable);
+    void findByDifficulty_shouldReturnAllMatching() {
+        List<Recipe> easyRecipes = recipeRepository.findByDifficulty(FoodDifficulty.EASY);
 
-        assertThat(page.getTotalElements()).isEqualTo(1);
-        assertThat(page.getContent()).extracting(Recipe::getTitle).containsExactly("Pancakes");
+        assertThat(easyRecipes).hasSize(1);
+        assertThat(easyRecipes).extracting(Recipe::getTitle)
+                .containsExactly("Pancakes");
     }
 
     @Test
-    void findByAuthor_shouldReturnPaged() {
-        Pageable pageable = PageRequest.of(0, 10, Sort.by("title").ascending());
-        Page<Recipe> page1 = recipeRepository.findByAuthor(author1, pageable);
-        Page<Recipe> page2 = recipeRepository.findByAuthor(author2, pageable);
+    void findByAuthor_shouldReturnAllMatching() {
+        List<Recipe> recipesByAuthor1 = recipeRepository.findByAuthor(author1);
+        List<Recipe> recipesByAuthor2 = recipeRepository.findByAuthor(author2);
 
-        assertThat(page1.getTotalElements()).isEqualTo(2);
-        assertThat(page1.getContent()).extracting(Recipe::getTitle)
-                .containsExactly("Burger", "Pancakes");
+        assertThat(recipesByAuthor1).hasSize(2);
+        assertThat(recipesByAuthor1).extracting(Recipe::getTitle)
+                .containsExactlyInAnyOrder("Burger", "Pancakes");
 
-        assertThat(page2.getTotalElements()).isEqualTo(1);
-        assertThat(page2.getContent()).extracting(Recipe::getTitle)
+        assertThat(recipesByAuthor2).hasSize(1);
+        assertThat(recipesByAuthor2).extracting(Recipe::getTitle)
                 .containsExactly("Souffle");
     }
 }
