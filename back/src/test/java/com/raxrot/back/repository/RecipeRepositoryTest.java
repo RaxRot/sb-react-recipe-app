@@ -69,4 +69,18 @@ class RecipeRepositoryTest {
         assertThat(recipesByAuthor2).extracting(Recipe::getTitle)
                 .containsExactly("Souffle");
     }
+
+    @Test
+    void findByAuthorId_shouldReturnAllMatching() {
+        List<Recipe> recipesByAuthor1 = recipeRepository.findByAuthor_Id(author1.getId());
+        List<Recipe> recipesByAuthor2 = recipeRepository.findByAuthor_Id(author2.getId());
+
+        assertThat(recipesByAuthor1).hasSize(2);
+        assertThat(recipesByAuthor1).extracting(Recipe::getTitle)
+                .containsExactlyInAnyOrder("Burger", "Pancakes");
+
+        assertThat(recipesByAuthor2).hasSize(1);
+        assertThat(recipesByAuthor2).extracting(Recipe::getTitle)
+                .containsExactly("Souffle");
+    }
 }
