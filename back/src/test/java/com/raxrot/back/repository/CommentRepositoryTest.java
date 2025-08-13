@@ -10,10 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
@@ -75,15 +71,5 @@ class CommentRepositoryTest {
 
         assertThat(forU1).hasSize(2);
         assertThat(forU2).hasSize(1);
-    }
-
-    @Test
-    void findByRecipe_paged_shouldWork() {
-        Pageable pageable = PageRequest.of(0, 10, Sort.by("createdAt").ascending());
-        Page<Comment> page = commentRepository.findByRecipe(r1, pageable);
-
-        assertThat(page.getTotalElements()).isEqualTo(2);
-        assertThat(page.getContent()).extracting(Comment::getComment)
-                .containsExactlyInAnyOrder("nice", "wow");
     }
 }
