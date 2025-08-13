@@ -10,4 +10,5 @@ import java.util.List;
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     List<Recipe> findByDifficulty(FoodDifficulty difficulty);
     List<Recipe> findByAuthor(User author);
+    List<Recipe> findByAuthor_Id(Long authorId);
 }
