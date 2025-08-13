@@ -31,7 +31,7 @@ public class Recipe {
     @Lob
     @Column(nullable = false)
     private String ingredients;
-    private String image;
+    private String imageUrl;
 
     @Enumerated(EnumType.STRING)
     private FoodDifficulty difficulty;

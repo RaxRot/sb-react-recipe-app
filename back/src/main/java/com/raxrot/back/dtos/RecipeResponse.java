@@ -15,7 +15,7 @@ public class RecipeResponse {
     private String title;
     private String description;
     private String ingredients;
-    private String image;
+    private String imageUrl;
     private FoodDifficulty difficulty;
     private UserResponseDTO author;
 }
