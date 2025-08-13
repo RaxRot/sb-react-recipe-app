@@ -8,6 +8,7 @@ import com.raxrot.back.security.dto.LoginRequest;
 import com.raxrot.back.security.dto.LoginResponse;
 import com.raxrot.back.security.dto.SignupRequest;
 import com.raxrot.back.security.jwt.JwtUtils;
+import com.raxrot.back.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,9 @@ public class AuthController {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    EmailService emailService;
 
     // Логин (оставляем твой код)
     @PostMapping("/signin")
@@ -89,6 +93,7 @@ public class AuthController {
         user.setRole(UserRole.ROLE_USER);
 
         userRepository.save(user);
+        emailService.sendEmail(user.getEmail(),"Thant you","Your login is "+user.getUsername()+".!");
 
         return ResponseEntity.ok(Map.of("message", "User registered successfully!"));
     }
