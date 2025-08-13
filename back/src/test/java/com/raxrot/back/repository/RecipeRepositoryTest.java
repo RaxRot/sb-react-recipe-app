@@ -34,9 +34,9 @@ class RecipeRepositoryTest {
         em.persist(author1);
         em.persist(author2);
 
-        Recipe r1 = new Recipe(null, "Pancakes", "desc1", "ing1", null, FoodDifficulty.EASY, null, null, author1);
-        Recipe r2 = new Recipe(null, "Burger",   "desc2", "ing2", null, FoodDifficulty.MEDIUM, null, null, author1);
-        Recipe r3 = new Recipe(null, "Souffle",  "desc3", "ing3", null, FoodDifficulty.HARD, null, null, author2);
+        Recipe r1 = new Recipe(null, "Pancakes", "desc1", "ing1", null, FoodDifficulty.EASY, null, null, author1,null);
+        Recipe r2 = new Recipe(null, "Burger",   "desc2", "ing2", null, FoodDifficulty.MEDIUM, null, null, author1,null);
+        Recipe r3 = new Recipe(null, "Souffle",  "desc3", "ing3", null, FoodDifficulty.HARD, null, null, author2,null);
 
         em.persist(r1);
         em.persist(r2);

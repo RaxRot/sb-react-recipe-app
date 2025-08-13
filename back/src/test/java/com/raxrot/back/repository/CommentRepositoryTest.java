@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,8 +40,8 @@ class CommentRepositoryTest {
         em.persist(u1);
         em.persist(u2);
 
-        r1 = new Recipe(null, "Pasta", "desc", "ing", null, FoodDifficulty.MEDIUM, null, null, u1);
-        r2 = new Recipe(null, "Soup",  "desc", "ing", null, FoodDifficulty.EASY,   null, null, u2);
+        r1 = new Recipe(null, "Pasta", "desc", "ing", null, FoodDifficulty.MEDIUM, null, null, u1, new ArrayList<>());
+        r2 = new Recipe(null, "Soup",  "desc", "ing", null, FoodDifficulty.EASY,   null, null, u2, new ArrayList<>());
         em.persist(r1);
         em.persist(r2);
 
